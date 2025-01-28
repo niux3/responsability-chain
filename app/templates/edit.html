@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <h1>éditer</h1>
+    <form method="post">
+        <div class="grid-x grid-padding-x">
+            {% for item in form %}
+                <div class="cell medium-2">
+                    {% if item.label.text != "CSRF Token" %}
+                        {{ item.label }}
+                    {% endif %}
+                    {{ item(class="") }}
+                    {% for error in item.errors %}
+                        <span class="form-error is-visible">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+        <div><button type="submit" class="button">envoyer</button></div>
+    </form>
+{% endblock %}

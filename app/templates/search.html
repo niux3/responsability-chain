@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+
+{% block css %}
+    <style>
+{#.group .cell:last-child button{#}
+    {#display: none;#}
+{#}#}
+{#.group:last-child .cell:last-child button{#}
+    {#display: block;#}
+{#}#}
+    </style>
+{% endblock %}
+{% block body %}
+    <form method="get">
+        <fieldset class="fieldset">
+            <label class="margin-horizontal-1">
+                <span>{{ form.name.label.text }}</span>
+                {{ form.name }}
+            </label>
+        </fieldset>
+        <fieldset  class="fieldset">
+            <legend>{{ form.accepted.label.text }}</legend>
+            <div class="grid-x grid-padding-x">
+                {% for d in form.accepted %}
+                    <label class="cell medium-6">
+                        {{ d }}
+                        <span>{{ d.label.text }}</span>
+                    </label>
+                {% endfor %}
+            </div>
+        </fieldset>
+        <fieldset  class="fieldset addRows">
+            <legend>Sur les champs normaux</legend>
+            <div class="group grid-x grid-padding-x">
+                <label class="cell medium-3">
+                    <span>{{ form.field_0.label.text }}</span>
+                    {{ form.field_0 }}
+                </label>
+                <label class="cell medium-3">
+                    <span>{{ form.field_filter_0.label.text }}</span>
+                    {{ form.field_filter_0 }}
+                </label>
+                <label class="cell medium-3">
+                    <span>{{ form.field_value_0.label.text }}</span>
+                    {{ form.field_value_0 }}
+                </label>
+            </div>
+        </fieldset>
+        
+        <fieldset  class="fieldset addRows">
+            <legend>Sur les champs date</legend>
+            <div class="group grid-x grid-padding-x">
+                <label class="cell medium-2">
+                    <span>{{ form.date_0.label.text }}</span>
+                    {{ form.date_0 }}
+                </label>
+                <label class="cell medium-3">
+                    <span>{{ form.date_filter_0.label.text }}</span>
+                    {{ form.date_filter_0 }}
+                </label>
+                <label class="cell medium-2">
+                    <span>{{ form.date_begin_0.label.text }}</span>
+                    {{ form.date_begin_0 }}
+                </label>
+                <label class="cell medium-2">
+                    <span>{{ form.date_end_0.label.text }}</span>
+                    {{ form.date_end_0 }}
+                </label>
+            </div>
+        </fieldset>
+
+        <div><input type="submit" class="button primary" name="submit" value="envoyer" /></div>
+    </form>
+{% endblock %}
+{% block js %}
+   <script src="{{ url_for('static', filename="js/app.js") }}"></script>
+{% endblock %}

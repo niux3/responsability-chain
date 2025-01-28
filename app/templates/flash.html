@@ -1,0 +1,17 @@
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="callout {{ category }}">
+                <h5>Informations</h5>
+                <p>{{ message }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+<script>
+(()=>{
+    let flash = document.querySelector('.callout')
+    flash.addEventListener('click', e => flash.remove())
+    let hideFlash = setTimeout(()=> flash.click(), 5000)
+ })()
+</script>

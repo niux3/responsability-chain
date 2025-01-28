@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+bobo = "==2.4.0"
+six = "==1.16.0"
+webob = "==1.8.7"
+flask = "==3.1"
+flask-wtf = "*"
+flask-sqlalchemy = "*"
+flask-migrate = "*"
+wtforms-alchemy = "*"
+faker = "*"
+psycopg2-binary = "*"
+jedi = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"

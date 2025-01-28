@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ACME</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename="css/foundation-float.min.css") }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename="css/foundation-prototype.min.css") }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename="css/foundation-rtl.min.css") }}">
+        {% block css %}{% endblock %}
+    </head>
+    <body>
+        <main class="grid-container">
+            {% include 'header.html' %}
+            {% include 'flash.html' %}
+            <div class="margin-vertical-3">
+                {% block body %}{% endblock %}
+            </div>
+        </main>
+        {% block js %}{% endblock %}
+    </body>
+</html>

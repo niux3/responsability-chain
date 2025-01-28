@@ -1,0 +1,14 @@
+<header>
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <ul class="menu">
+                <li><a href="{{ url_for('index') }}">index</a></li>
+                <li><a href="{{ url_for('edit') }}">ajouter</a></li>
+                <li><a href="{{ url_for('search') }}">chercher</a></li>
+            </ul>
+        </div>
+        <div class="top-bar-right">
+            <a href="{{ url_for('import_user') }}" class="button alert margin-0" onclick='javascript: return confirm("voulez vous vraiment importer ?")'>importer utilisateur</a>
+        </div>
+    </div>
+</header>
