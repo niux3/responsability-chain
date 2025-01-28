@@ -1,4 +1,4 @@
-export class AddFieldsModel{
+export class FilterFieldsModel{
     constructor(els){
         this._els = els
         this._data = {}

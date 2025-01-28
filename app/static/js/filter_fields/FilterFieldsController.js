@@ -1,16 +1,16 @@
-import { AddFieldsModel } from './AddFieldsModel.js'
-import { AddFieldsView } from './AddFieldsView.js'
+import { FilterFieldsModel } from './FilterFieldsModel.js'
+import { FilterFieldsView } from './FilterFieldsView.js'
 
 
-export class AddFieldsController{
+export class FilterFieldsController{
     constructor(){
         let dataNodes = {
             'fields': document.getElementById('dataFields'),
             'comparatorNormal': document.getElementById('dataComparatorNormal'),
             'comparatorDate': document.getElementById('dataComparatorDate')
         }
-        this._model = new AddFieldsModel(dataNodes)
-        this._view = new AddFieldsView(document.getElementById('field_0'), document.getElementById('field_filter_0'))
+        this._model = new FilterFieldsModel(dataNodes)
+        this._view = new FilterFieldsView(document.getElementById('field_0'), document.getElementById('field_filter_0'))
 
         this._view.selectPrimary.addEventListener('change', this._onPrimaryChange.bind(this))
     }

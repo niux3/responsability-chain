@@ -1,8 +1,8 @@
-import { AddFieldsController } from './add_fields/AddFieldsController.js'
+import { FilterFieldsController } from './filter_fields/FilterFieldsController.js'
 
 
 (()=>{
-    let addFieldsController = new AddFieldsController()
+    let addFieldsController = new FilterFieldsController()
     let fieldsets = document.querySelectorAll('.addRows'),
         addFields = (fieldset, groups) => { 
             fieldset.insertAdjacentHTML("beforeend", groups[groups.length - 1].outerHTML) 

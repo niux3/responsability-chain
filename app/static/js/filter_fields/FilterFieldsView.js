@@ -1,4 +1,4 @@
-export class AddFieldsView {
+export class FilterFieldsView {
     constructor(selectPrimary, selectSecondary) {
         this.selectPrimary = selectPrimary
         this.selectSecondary = selectSecondary
