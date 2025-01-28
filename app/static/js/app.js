@@ -1,4 +1,8 @@
+import { AddFieldsController } from './add_fields/AddFieldsController.js'
+
+
 (()=>{
+    let addFieldsController = new AddFieldsController()
     let fieldsets = document.querySelectorAll('.addRows'),
         addFields = (fieldset, groups) => { 
             fieldset.insertAdjacentHTML("beforeend", groups[groups.length - 1].outerHTML) 
@@ -35,17 +39,18 @@
 
         groups[groups.length - 1].insertAdjacentHTML('beforeend', tplButton)
         fieldset.addEventListener('pointerdown', e =>{
-            e.preventDefault()
-            if(e.target.classList.contains('add') && e.target.nodeName.toLowerCase() === 'button'){
-                addFields(fieldset, groups)
+            if(['add', 'remove'].some(n => e.target.classList.contains('add')) && e.target.nodeName.toLowerCase() === 'button'){
+                e.preventDefault()
+                if(e.target.classList.contains('add') && e.target.nodeName.toLowerCase() === 'button'){
+                    addFields(fieldset, groups)
+                }
+                groups = fieldset.querySelectorAll('.group')
+                if(e.target.classList.contains('remove') && e.target.nodeName.toLowerCase() === 'button'){
+                    removeFields(e.target)
+                }
+                changeButton(groups)
+                changeName(fieldset)
             }
-            groups = fieldset.querySelectorAll('.group')
-            if(e.target.classList.contains('remove') && e.target.nodeName.toLowerCase() === 'button'){
-                removeFields(e.target)
-            }
-            changeButton(groups)
-            changeName(fieldset)
         })
     })
 })()
-

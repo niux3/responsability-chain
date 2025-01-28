@@ -1,10 +1,9 @@
 import json
-from pprint import pprint
 from faker import Faker
 from flask import render_template, redirect, url_for, flash, request
 from .app import app, db
 from .models import User
-from .forms import UserForm, SearchForm, filters as filters_data
+from .forms import UserForm, SearchForm, fields, filters, date_filter
 from app.libs import Filters
 
 
@@ -85,6 +84,12 @@ def search():
         }
         return render_template('index.html', **ctx)
     ctx = {
-        'form': form
+        'form': form,
+        'fields': json.dumps(fields),
+        'comparator': {
+            'normal': json.dumps(filters),
+            'date': json.dumps(date_filter)
+        }
+
     }
     return render_template('search.html', **ctx)

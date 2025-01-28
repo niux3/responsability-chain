@@ -39,10 +39,6 @@ fields = [
     "address_lat",
     "address_long",
     "company",
-]
-
-date_field = [
-    "choisir un type de date",
     "birthday",
     "created",
     "updated",
@@ -83,7 +79,7 @@ class SearchForm(FlaskForm):
     field_0 = wtforms.SelectField("Champs", choices=[(i, r) for i, r in enumerate(fields)])
     field_filter_0 = wtforms.SelectField("Filtres", choices=[(i, r) for i, r in enumerate(filters)])
     field_value_0 = wtforms.StringField("Valeur")
-    date_0 = wtforms.SelectField("Date", choices=[(i, r) for i, r in enumerate(date_field)])
-    date_filter_0 = wtforms.SelectField("Filtre", choices=[(i, r) for i, r in enumerate(date_filter)])
-    date_begin_0 = wtforms.StringField("De")
-    date_end_0 = wtforms.StringField("À")
+    # date_0 = wtforms.SelectField("Date", choices=[(i, r) for i, r in enumerate(date_field)])
+    # date_filter_0 = wtforms.SelectField("Filtre", choices=[(i, r) for i, r in enumerate(date_filter)])
+    # date_begin_0 = wtforms.StringField("De")
+    # date_end_0 = wtforms.StringField("À")

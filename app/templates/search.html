@@ -1,16 +1,6 @@
 {% extends 'base.html' %}
 
 
-{% block css %}
-    <style>
-{#.group .cell:last-child button{#}
-    {#display: none;#}
-{#}#}
-{#.group:last-child .cell:last-child button{#}
-    {#display: block;#}
-{#}#}
-    </style>
-{% endblock %}
 {% block body %}
     <form method="get">
         <fieldset class="fieldset">
@@ -48,31 +38,37 @@
             </div>
         </fieldset>
         
-        <fieldset  class="fieldset addRows">
-            <legend>Sur les champs date</legend>
-            <div class="group grid-x grid-padding-x">
-                <label class="cell medium-2">
-                    <span>{{ form.date_0.label.text }}</span>
-                    {{ form.date_0 }}
-                </label>
-                <label class="cell medium-3">
-                    <span>{{ form.date_filter_0.label.text }}</span>
-                    {{ form.date_filter_0 }}
-                </label>
-                <label class="cell medium-2">
-                    <span>{{ form.date_begin_0.label.text }}</span>
-                    {{ form.date_begin_0 }}
-                </label>
-                <label class="cell medium-2">
-                    <span>{{ form.date_end_0.label.text }}</span>
-                    {{ form.date_end_0 }}
-                </label>
-            </div>
-        </fieldset>
+        {#<fieldset  class="fieldset addRows">#}
+            {#<legend>Sur les champs date</legend>#}
+            {#<div class="group grid-x grid-padding-x">#}
+                {#<label class="cell medium-2">#}
+                    {#<span>{{ form.date_0.label.text }}</span>#}
+                    {#{{ form.date_0 }}#}
+                {#</label>#}
+                {#<label class="cell medium-3">#}
+                    {#<span>{{ form.date_filter_0.label.text }}</span>#}
+                    {#{{ form.date_filter_0 }}#}
+                {#</label>#}
+                {#<label class="cell medium-2">#}
+                    {#<span>{{ form.date_begin_0.label.text }}</span>#}
+                    {#{{ form.date_begin_0 }}#}
+                {#</label>#}
+                {#<label class="cell medium-2">#}
+                    {#<span>{{ form.date_end_0.label.text }}</span>#}
+                    {#{{ form.date_end_0 }}#}
+                {#</label>#}
+            {#</div>#}
+        {#</fieldset>#}
 
         <div><input type="submit" class="button primary" name="submit" value="envoyer" /></div>
     </form>
 {% endblock %}
 {% block js %}
-   <script src="{{ url_for('static', filename="js/app.js") }}"></script>
+    <script type="text/template" id="dataFields">{{ fields }}</script>
+    <script type="text/template" id="dataComparatorNormal">{{ comparator.normal }}</script>
+    <script type="text/template" id="dataComparatorDate">{{ comparator.date }}</script>
+    <script type="module" src="{{ url_for('static', filename="js/add_fields/AddFieldsModel.js") }}"></script>
+    <script type="module" src="{{ url_for('static', filename="js/add_fields/AddFieldsView.js") }}"></script>
+    <script type="module" src="{{ url_for('static', filename="js/add_fields/AddFieldsController.js") }}"></script>
+    <script type="module" src="{{ url_for('static', filename="js/app.js") }}"></script>
 {% endblock %}
