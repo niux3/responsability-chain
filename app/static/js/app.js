@@ -1,4 +1,5 @@
 import { FilterFieldsController } from './filter_fields/FilterFieldsController.js'
+import { TemplateEngine } from './TemplateEngine.js'
 
 
 (()=>{
@@ -53,4 +54,42 @@ import { FilterFieldsController } from './filter_fields/FilterFieldsController.j
             }
         })
     })
+    console.clear()
+    // Exemple d'utilisation
+    const template = `
+    <div>
+        <h1>{{title}}</h1>
+        <p>{{description}}</p>
+        {{#if showItems}}
+        <ul>
+            {{#each items}}
+            <li>{{this}}</li>
+            {{/each}}
+        </ul>
+        {{:else if showOtherItems}}
+        <ul>
+            {{#each otherItems}}
+            <li>{{this}}</li>
+            {{/each}}
+        </ul>
+        {{:else}}
+        <p>No items to display.</p>
+        {{/if}}
+    </div>
+`
+
+    const data = {
+        title: "Mon Titre",
+        description: "Ceci est une description.",
+        showItems: true,
+        showOtherItems: true,
+        items: ["Item 1", "Item 2", "Item 3"],
+        otherItems: ["Other Item 1", "Other Item 2"]
+    }
+
+    const engine = new TemplateEngine(template)
+    const output = engine.render(data)
+
+    console.log(output)
+
 })()

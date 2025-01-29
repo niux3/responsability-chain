@@ -53,24 +53,27 @@
                         <option value=""></option>
                     </select>
                 </label>
-                <label class="cell medium-2">
-                    <span>De</span>
-                    <input type="text">
-                </label>
-                <label class="cell medium-2">
-                    <span>À</span>
-                    <input type="text">
-                </label>
+                <div class="cell medium-4 flex-container align-justify">
+                    <label class="medium-5">
+                        <span>De</span>
+                        <input type="text">
+                    </label>
+                    <label class="medium-5">
+                        <span>À</span>
+                        <input type="text">
+                    </label>
+                </div>
             </div>
         </fieldset>
-
         <div><input type="submit" class="button primary" name="submit" value="envoyer" /></div>
     </form>
+    <div class="resultTpl"></div>
 {% endblock %}
 {% block js %}
     <script type="text/template" id="dataFields">{{ fields }}</script>
     <script type="text/template" id="dataComparatorNormal">{{ comparator.normal }}</script>
     <script type="text/template" id="dataComparatorDate">{{ comparator.date }}</script>
+    <script type="module" src="{{ url_for('static', filename="js/TemplateEngine.js") }}"></script>
     <script type="module" src="{{ url_for('static', filename="js/filter_fields/FilterFieldsModel.js") }}"></script>
     <script type="module" src="{{ url_for('static', filename="js/filter_fields/FilterFieldsView.js") }}"></script>
     <script type="module" src="{{ url_for('static', filename="js/filter_fields/FilterFieldsController.js") }}"></script>

@@ -10,7 +10,11 @@ export class FilterFieldsController{
             'comparatorDate': document.getElementById('dataComparatorDate')
         }
         this._model = new FilterFieldsModel(dataNodes)
-        this._view = new FilterFieldsView(document.getElementById('field_0'), document.getElementById('field_filter_0'))
+        this._view = new FilterFieldsView(...[
+            document.getElementById('field_0'),
+            document.getElementById('field_filter_0'),
+            document.getElementById('dynamic_inputs_0')
+        ])
 
         this._view.selectPrimary.addEventListener('change', this._onPrimaryChange.bind(this))
     }

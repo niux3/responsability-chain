@@ -1,7 +1,8 @@
 export class FilterFieldsView {
-    constructor(selectPrimary, selectSecondary) {
+    constructor(selectPrimary, selectSecondary, inputContainer) {
         this.selectPrimary = selectPrimary
         this.selectSecondary = selectSecondary
+        this.inputContainer = inputContainer
     }
 
     updateSelect(selectElement, options) {
