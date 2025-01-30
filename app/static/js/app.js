@@ -3,7 +3,6 @@ import { TemplateEngine } from './TemplateEngine.js'
 
 
 (()=>{
-    let addFieldsController = new FilterFieldsController()
     let fieldsets = document.querySelectorAll('.addRows'),
         addFields = (fieldset, groups) => { 
             fieldset.insertAdjacentHTML("beforeend", groups[groups.length - 1].outerHTML) 
@@ -33,63 +32,37 @@ import { TemplateEngine } from './TemplateEngine.js'
 
     fieldsets.forEach(( fieldset, i ) =>{
         let groups = fieldset.querySelectorAll('.group'),
-            tplButton = `
-            <div class="cell medium-3 flex-container align-bottom">
-                <button type="button" class="add button primary expanded">ajouter</button>
-            </div>`
+            tplButton = document.getElementById('tplButton').textContent,
+            filterFieldsControllerList = [],
+            resetFilterFieldsControllerList = (groups, filterFieldsControllerList ) =>{
+                filterFieldsControllerList = []
+                for(let i = 0; i < groups.length; i++){
+                    filterFieldsControllerList.push(new FilterFieldsController(i))
+                }
+            }
 
         groups[groups.length - 1].insertAdjacentHTML('beforeend', tplButton)
+        resetFilterFieldsControllerList(groups, filterFieldsControllerList)
+
         fieldset.addEventListener('pointerdown', e =>{
-            if(['add', 'remove'].some(n => e.target.classList.contains('add')) && e.target.nodeName.toLowerCase() === 'button'){
-                e.preventDefault()
-                if(e.target.classList.contains('add') && e.target.nodeName.toLowerCase() === 'button'){
-                    addFields(fieldset, groups)
+            if(e.target.closest('button')){
+                let button = e.target.closest('button')
+                if(['add', 'remove'].some(n => button.classList.contains(n))){
+                    e.preventDefault()
+                    if(button.classList.contains('add')){
+                        addFields(fieldset, groups)
+                    }
+                    groups = fieldset.querySelectorAll('.group')
+                    if(button.classList.contains('remove')){
+                        removeFields(e.target)
+                    }
+
+                    // ne pas changer l'ordre des instruction puisque le changement de champs ne peut pas se faire si les champs ne sont pas renommés
+                    changeButton(groups)
+                    changeName(fieldset)
+                    resetFilterFieldsControllerList(groups, filterFieldsControllerList)
                 }
-                groups = fieldset.querySelectorAll('.group')
-                if(e.target.classList.contains('remove') && e.target.nodeName.toLowerCase() === 'button'){
-                    removeFields(e.target)
-                }
-                changeButton(groups)
-                changeName(fieldset)
             }
         })
     })
-    console.clear()
-    // Exemple d'utilisation
-    const template = `
-    <div>
-        <h1>{{title}}</h1>
-        <p>{{description}}</p>
-        {{#if showItems}}
-        <ul>
-            {{#each items}}
-            <li>{{this}}</li>
-            {{/each}}
-        </ul>
-        {{:else if showOtherItems}}
-        <ul>
-            {{#each otherItems}}
-            <li>{{this}}</li>
-            {{/each}}
-        </ul>
-        {{:else}}
-        <p>No items to display.</p>
-        {{/if}}
-    </div>
-`
-
-    const data = {
-        title: "Mon Titre",
-        description: "Ceci est une description.",
-        showItems: true,
-        showOtherItems: true,
-        items: ["Item 1", "Item 2", "Item 3"],
-        otherItems: ["Other Item 1", "Other Item 2"]
-    }
-
-    const engine = new TemplateEngine(template)
-    const output = engine.render(data)
-
-    console.log(output)
-
 })()

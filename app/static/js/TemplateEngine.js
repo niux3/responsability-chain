@@ -1,54 +1,72 @@
 export class TemplateEngine {
-    constructor(template) {
-        this.template = template
+    #template = ''
+    #tokens = []
+    #escape = {}
+
+    constructor() {
+        this.#escape = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;',
+        }
     }
 
-    render(data) {
-        let output = this.template
+    #tokenize(template) {
+        let regex = /\[%=?-?([\s\S]+?)%\]|([^\[%]+)/g,
+            match,
+            tokens = []
 
-        // Gestion des conditions if/else if/else
-        output = this._processConditions(output, data)
-
-        // Gestion des boucles
-        output = this._processLoops(output, data)
-
-        // Remplacement des placeholders simples
-        output = this._processPlaceholders(output, data)
-
-        return output
-    }
-
-    _processConditions(template, data) {
-        // Regex pour capturer les blocs if/else if/else
-        let pattern = /\{\{#if (?<ifCondition>\w+)\}\}(?<ifContent>.*?)(\{\{:else if (?<elseIfCondition>\w+)\}\}(?<elseIfContent>.*?))?(\{\{:else\}\}(?<elseContent>.*?))?\{\{\/if\}\}/gs
-        return template.replace(pattern, (...args) => {
-            args = args[args.length - 1]
-            if (data[args.ifCondition]) {
-                return args.ifContent
-            } else if (data[args.elseIfCondition]) {
-                return args.elseIfContent
-            } else {
-                return args.elseContent
+        while ((match = regex.exec(template)) !== null) {
+            if (match[1]) {
+                let code = match[1].trim()
+                if (match[0].startsWith("[%=")) {
+                    tokens.push({ type: "OUTPUT_ESCAPED", value: code })
+                } else if (match[0].startsWith("[%-")) {
+                    tokens.push({ type: "OUTPUT_RAW", value: code })
+                } else {
+                    tokens.push({ type: "JS_CODE", value: code })
+                }
+            } else if (match[2]) {
+                tokens.push({ type: "TEXT", value: match[2] })
             }
-            return null
-        })
+        }
+
+        return tokens
     }
 
-    _processLoops(template, data) {
-        let pattern = /\{\{#each (\w+)\}\}(.*?)\{\{\/each\}\}/gs
-        return template.replace(pattern, (match, key, content) => {
-            if (data.hasOwnProperty(key) && Array.isArray(data[key])) {
-                return data[key].map(item => {
-                    return content.replace(/\{\{this\}\}/g, item)
-                }).join('')
+    #compile(template) {
+        let code = `let output = ""; \n`,
+            escapeHTML = str => String(str).replace(/[&<>"']/g, (match) => {
+                return this.#escape[match] || match
+            })
+        this.#tokens = this.#tokenize(template)
+        this.#tokens.forEach(token => {
+            switch (token.type) {
+                case "TEXT":
+                    code += `output += ${JSON.stringify(token.value)};\n`
+                    break
+                case "OUTPUT_ESCAPED":
+                    code += `output += escapeHTML(${token.value});\n`
+                    break
+                case "OUTPUT_RAW":
+                    code += `output += ${token.value};\n`
+                    break
+                case "JS_CODE":
+                    code += `${token.value}\n`
+                    break
             }
-            return ''
         })
+
+        code += `return output;`
+        return new Function("data", "escapeHTML", `with(data) { ${code} }`)
     }
 
-    _processPlaceholders(template, data) {
-        return template.replace(/\{\{(\w+)\}\}/g, (match, key) => {
-            return data.hasOwnProperty(key) ? data[key] : match
-        })
+    render(template, data) {
+        let renderFunction = this.#compile(template)
+        return renderFunction(data, str => str.replace(/[&<>"']/g, match => {
+            return this.#escape[match] || match
+        }))
     }
 }
