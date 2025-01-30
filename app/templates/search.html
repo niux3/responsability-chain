@@ -31,7 +31,7 @@
                     <span>{{ form.field_filter_0.label.text }}</span>
                     {{ form.field_filter_0 }}
                 </label>
-                <div class="cell medium-4 flex-container align-justify">
+                <div class="cell dynamicField medium-4 flex-container align-justify">
                     <label class="width-100">
                         <span>{{ form.field_value_0.label.text }}</span>
                         {{ form.field_value_0 }}
@@ -48,16 +48,14 @@
     <script type="text/template" id="dataComparatorDate">{{ comparator.date }}</script>
 
     <script type="text/template" id="tplDoubleInputText">
-        <div class="cell medium-5 flex-container align-justify">
-            <label class="medium-5">
-                <span>[%= labelA %]</span>
-                <input type="text" name="[%= nameInputA %]" />
-            </label>
-            <label class="medium-5">
-                <span>[%= labelB %]</span>
-                <input type="text" name="[%= nameInputB %]" />
-            </label>
-        </div>
+        <label class="medium-5">
+            <span>[%= labelA %]</span>
+            <input type="text" name="[%= nameInputA %]" />
+        </label>
+        <label class="medium-5">
+            <span>[%= labelB %]</span>
+            <input type="text" name="[%= nameInputB %]" />
+        </label>
     </script>
 
     <script type="text/template" id="tplInputText">

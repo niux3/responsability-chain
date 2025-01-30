@@ -46,7 +46,8 @@ export class FilterFieldsController{
             }
         }
         template = document.getElementById(idTpl).textContent
-        console.log(">> ", this._engine.render(template, dataTpl))
+        let target = document.querySelector(`*[name="field_${this._indexRow}"]`).closest('.group').querySelector('.dynamicField')
+        target.innerHTML = this._engine.render(template, dataTpl)
         
 
         this._view.updateSelect(this._view.selectSecondary, data)
