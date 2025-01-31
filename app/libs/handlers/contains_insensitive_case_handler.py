@@ -1,10 +1,10 @@
 from .abstract_handler import AbstractHandler
 
 
-class ContainsHandler(AbstractHandler):
+class ContainsInsensitiveCaseHandler(AbstractHandler):
     def handle(self, query, filter_data):
-        if filter_data.get("comparator") == 5:
+        if filter_data.get("comparator") == 7:
             column = filter_data["column"]
             value = filter_data["value"]
-            query = query.filter(column.like(f"%{value}%"))
+            query = query.filter(column.ilike(f"%{value}%"))
         return super().handle(query, filter_data)
