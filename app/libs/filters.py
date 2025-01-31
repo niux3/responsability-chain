@@ -18,8 +18,9 @@ class Filters:
                 break
             key_column_name = int(data[fields_form[0]])
             column_name = fields[key_column_name]
-            key_comparator = int(data[fields_form[1]])
-            comparator = filters[key_comparator]
+            # key_comparator = int(data[fields_form[1]])
+            # comparator = filters[key_comparator]
+            comparator = int(data[fields_form[1]])
             value = data[fields_form[2]]
 
             column = getattr(User, column_name)

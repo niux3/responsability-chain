@@ -78,7 +78,8 @@ def search():
         
         filter_conditions = Filters.build_conditions(request.args)
         query = Filters.execute(query, filter_conditions)
-        # query = query.filter(User.username.ilike('ACOLLET'))
+        # from sqlalchemy import or_
+        # query = query.filter(or_(User.username == 'ACOLLET', User.username == 'acollet'))
         ctx = {
             'object_list': query.all() 
         }
