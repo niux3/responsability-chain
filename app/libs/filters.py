@@ -16,6 +16,7 @@ class Filters:
             ]
             if any([f not in data.keys() for f in fields_form]):
                 break
+            # TODO : récupérer diretement le nom du champs comme ça, ça me parait risquer
             key_column_name = int(data[fields_form[0]])
             column_name = fields[key_column_name]
             # key_comparator = int(data[fields_form[1]])
