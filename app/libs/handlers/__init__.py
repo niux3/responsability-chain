@@ -9,3 +9,5 @@ from app.libs.handlers.contains_insensitive_case_handler import ContainsInsensit
 from app.libs.handlers.not_contains_insensitive_case_handler import NotContainsInsensitiveCaseHandler
 from app.libs.handlers.begin_handler import BeginHandler
 from app.libs.handlers.not_begin_handler import NotBeginHandler
+from app.libs.handlers.begin_insensitive_case_handler import BeginInsensitiveCaseHandler
+from app.libs.handlers.not_begin_insensitive_case_handler import NotBeginInsensitiveCaseHandler
