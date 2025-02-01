@@ -8,9 +8,9 @@ export class FilterFieldsView {
     updateSelect(selectElement, options) {
         selectElement.innerHTML = ""
 
-        options.forEach((option) => {
+        options.forEach((option, i) => {
             const opt = document.createElement("option")
-            opt.value = option
+            opt.value = i
             opt.textContent = option
             selectElement.appendChild(opt)
         })
