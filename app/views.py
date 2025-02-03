@@ -1,8 +1,9 @@
 import json
+from random import randint
 from faker import Faker
 from flask import render_template, redirect, url_for, flash, request
 from .app import app, db
-from .models import User
+from .models import User, Company
 from .forms import UserForm, SearchForm, fields, filters, date_filter
 from app.libs import Filters
 
@@ -38,7 +39,15 @@ def edit(id):
 @app.route('/ajouter-utilisateurs.html')
 def import_user():
     fake = Faker('fr_fr')
-    for _ in range(100):
+    for _ in range(50):
+        data = {
+            'name': fake.company()
+        }
+        company = Company(**data)
+        db.session.add(company)
+        db.session.commit()
+        db.session.refresh(company)
+    for _ in range(300):
         profile = fake.profile()
         data = {
             "name": fake.name(),
@@ -54,7 +63,7 @@ def import_user():
             "address_zipcode": fake.postcode(),
             "address_lat": fake.latitude(),
             "address_long": fake.longitude(),
-            "company": fake.company(),
+            "company_id": randint(1, 50),
         }
         user = User(**data)
         db.session.add(user)
