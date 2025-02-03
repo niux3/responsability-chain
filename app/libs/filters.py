@@ -1,5 +1,5 @@
-from app.models import User
-from app.forms import data_field_0, filters
+from app.models import User, Company
+from app.forms import data_field_0, filters, fields_company, fields_users
 import app.libs.handlers as handlers_module
 
 
@@ -8,6 +8,16 @@ class Filters:
     def build_conditions(data):
         filter_conditions = []
         i = 0
+        translate = {
+            'company': {
+                'model': Company,
+                'fields': list(fields_company.values())
+            }, 
+            'user': {
+                'model': User,
+                'fields': list(fields_users.values())
+            }
+        }
         while True:
             fields_form = [
                 f'field_{i}',
@@ -17,16 +27,15 @@ class Filters:
             if any([f not in data.keys() for f in fields_form]):
                 break
             # TODO : récupérer diretement le nom du champs comme ça, ça me parait risquer
-            key_column_name = int(data[fields_form[0]])
-            # column_name = fields[key_column_name]
-
+            key_model, key_column_name = data[fields_form[0]].split('_')
+            column_name = translate[key_model]['fields'][int(key_column_name)]
 
             # key_comparator = int(data[fields_form[1]])
             # comparator = filters[key_comparator]
             comparator = int(data[fields_form[1]])
             value = data[fields_form[2]]
 
-            column = getattr(User, column_name)
+            column = getattr(translate[key_model]['model'], column_name)
             filter_conditions.append({
                 "column": column,
                 "comparator": comparator,

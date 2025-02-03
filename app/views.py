@@ -82,13 +82,12 @@ def destroy(id):
 @app.route('/chercher.html', methods=['GET'])
 def search():
     form = SearchForm()
-    if request.args.get('submit') is not None:
+    if request.args.get('submit') is not None and request.args.get('submit') == 'envoyer':
         query = User.query
         
         filter_conditions = Filters.build_conditions(request.args)
         query = Filters.execute(query, filter_conditions)
-        # from sqlalchemy import or_
-        # query = query.filter(or_(User.username == 'ACOLLET', User.username == 'acollet'))
+
         ctx = {
             'object_list': query.all() 
         }

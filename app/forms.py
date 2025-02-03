@@ -3,26 +3,6 @@ from wtforms_alchemy import ModelForm
 from flask_wtf import FlaskForm
 from .models import User
 
-filters = [
-    "Choisir un filtre",
-    "Est égal à",
-    "N'est pas égal à",
-    "Est égal à (Ne respecte pas la casse)",
-    "N'est pas égal à (Ne respecte pas la casse)",
-    "Contient",
-    "Ne contient pas",
-    "Contient (Ne respecte pas la casse)",
-    "Ne contient pas (Ne respecte pas la casse)",
-    "Commence par",
-    "Ne commence pas par",
-    "Commence par (Ne respecte pas la casse)",
-    "Ne commence pas par (Ne respecte pas la casse)",
-    "Se termine par",
-    "Ne se termine pas par",
-    "Se termine par (Ne respecte pas la casse)",
-    "Ne se termine pas par (Ne respecte pas la casse)",
-    "Est vide",
-]
 
 fields_users = { 
     "nom": "name",
@@ -47,6 +27,27 @@ fields_company = {
     "date création": "created",
     "date mise à jour": "updated",
 }
+
+filters = [
+    "Choisir un filtre",
+    "Est égal à",
+    "N'est pas égal à",
+    "Est égal à (Ne respecte pas la casse)",
+    "N'est pas égal à (Ne respecte pas la casse)",
+    "Contient",
+    "Ne contient pas",
+    "Contient (Ne respecte pas la casse)",
+    "Ne contient pas (Ne respecte pas la casse)",
+    "Commence par",
+    "Ne commence pas par",
+    "Commence par (Ne respecte pas la casse)",
+    "Ne commence pas par (Ne respecte pas la casse)",
+    "Se termine par",
+    "Ne se termine pas par",
+    "Se termine par (Ne respecte pas la casse)",
+    "Ne se termine pas par (Ne respecte pas la casse)",
+    "Est vide",
+]
 
 date_filter = [
     "choisir un type de comparateur de date",
