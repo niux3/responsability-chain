@@ -2,6 +2,20 @@ from datetime import datetime
 from sqlalchemy.orm import relationship, backref
 from .app import db
 
+
+class Company(db.Model):
+    __tablename__ = 'companies'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    created = db.Column(db.DateTime, default=datetime.now)
+    updated = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
+
+    users = relationship('User', backref=backref('companies'))
+
+    def __repr__(self):
+        tpl = '<%s id="%s" name="%s">'
+        return tpl % (__class__.__name__, self.id, self.name)
+
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -26,16 +40,6 @@ class User(db.Model):
         tpl = '<%s id="%s" email="%s" ssn="%s">'
         return tpl % (__class__.__name__, self.id, self.email, self.ssn)
 
-
-class Company(db.Model):
-    __tablename__ = 'companies'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    created = db.Column(db.DateTime, default=datetime.now)
-    updated = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
-
-    users = relationship('User', backref=backref('companies'))
-
-    def __repr__(self):
-        tpl = '<%s id="%s" name="%s">'
-        return tpl % (__class__.__name__, self.id, self.name)
+    @property
+    def company(self):
+        return Company.query.get(self.company_id)

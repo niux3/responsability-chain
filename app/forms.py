@@ -24,25 +24,29 @@ filters = [
     "Est vide",
 ]
 
-fields = [
-    "Choisir un champ",
-    "name",
-    "username",
-    "email",
-    "website",
-    "ssn",
-    "sex",
-    "phone",
-    "address_city",
-    "address_street",
-    "address_zipcode",
-    "address_lat",
-    "address_long",
-    "company",
-    "birthday",
-    "created",
-    "updated",
-]
+fields_users = { 
+    "nom": "name",
+    "pseudo": "username",
+    "email": "email",
+    "site web": "website",
+    "ssn": "ssn",
+    "sex": "sex",
+    "téléphone": "phone",
+    "ville": "address_city",
+    "rue": "address_street",
+    "code postal": "address_zipcode",
+    "latitude": "address_lat",
+    "longitude": "address_long",
+    # "": "company",
+    "date anniversaire": "birthday",
+    "date création": "created",
+    "date mise à jour": "updated",
+}
+fields_company = {
+    "nom": "name",
+    "date création": "created",
+    "date mise à jour": "updated",
+}
 
 date_filter = [
     "choisir un type de comparateur de date",
@@ -72,11 +76,15 @@ class UserForm(FlaskForm, ModelForm):
     class Meta:
         model = User
 
+data_field_0 = {                                                                                                                
+    'société': [(f'company_{i}', f'{r} (société)') for i, r in enumerate(fields_company.keys())],                                                                                   
+    'employé': [(f'user_{i}', f'{r} (employé)') for i, r in enumerate(fields_users.keys())],                                                                                   
+}
 
 class SearchForm(FlaskForm):
     name = wtforms.StringField("Nom", validators=[wtforms.validators.DataRequired()])
     accepted = wtforms.RadioField("La fiche est acceptée si", choices=[(i, r) for i, r in enumerate(type_filter, 1)])
-    field_0 = wtforms.SelectField("Champs", choices=[(i, r) for i, r in enumerate(fields)])
+    field_0 = wtforms.SelectField("Champs", choices=data_field_0)
     field_filter_0 = wtforms.SelectField("Filtres", choices=[(i, r) for i, r in enumerate(filters)])
     field_value_0 = wtforms.StringField("Valeur")
     # date_0 = wtforms.SelectField("Date", choices=[(i, r) for i, r in enumerate(date_field)])

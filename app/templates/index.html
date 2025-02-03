@@ -7,6 +7,7 @@
                 <th scope="col" class="text-left"> - </th>
                 <th scope="col" class="text-left">username</th>
                 <th scope="col" class="text-left">email</th>
+                <th scope="col" class="text-left">société</th>
                 <th scope="col" class="text-right">actions</th>
             </tr>
         </thead>
@@ -16,6 +17,7 @@
                     <td>{{ object.id }}</td>
                     <td>{{ object.username }}</td>
                     <td>{{ object.email }}</td>
+                    <td>{{ object.company.name }}</td>
                     <td class="text-right">
                         <a href="{{ url_for('edit', id=object.id) }}" class="button warning">editer</a>
                         <a href="{{ url_for('destroy', id=object.id) }}" class="button alert" onclick='javascript: return confirm("voulez vous vraiment supprimer ?")'>supprimer</a>

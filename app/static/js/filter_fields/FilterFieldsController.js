@@ -23,13 +23,29 @@ export class FilterFieldsController{
     }
 
     _onPrimaryChange(e){
-        let value = parseInt(e.target.value, 10),
+        let [ key, value ] = e.target.value.split('_'),
+            translate = {
+                'company': 'société',
+                'user': 'employé'
+            },
             dataFields = this._model.getDataFor('fields'),
-            suffixKeyData = ['created', 'updated', 'birthday'].some(t => dataFields[value] === t)? 'Date': 'Normal',
-            data = this._model.getDataFor(`comparator${suffixKeyData}`),
+            suffixKeyData = 'Normal',
             template = null,
             idTpl = null,
             dataTpl = null
+        value = parseInt(value, 10)
+
+        switch(key){
+            case 'company':
+                suffixKeyData = [1, 2].some(t => value === t)? 'Date' : 'Normal'
+                console.log([1, 2].some(t => value === t))
+                break
+            case 'user':
+                suffixKeyData = [12, 13, 14].some(t => value === t)? 'Date' : 'Normal'
+                break
+        }
+        //let value = parseInt(e.target.value, 10),
+        let data = this._model.getDataFor(`comparator${suffixKeyData}`)
         if(suffixKeyData === 'Normal'){
             idTpl = 'tplInputText'
             dataTpl = {

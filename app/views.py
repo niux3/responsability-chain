@@ -4,7 +4,7 @@ from faker import Faker
 from flask import render_template, redirect, url_for, flash, request
 from .app import app, db
 from .models import User, Company
-from .forms import UserForm, SearchForm, fields, filters, date_filter
+from .forms import UserForm, SearchForm, data_field_0, filters, date_filter
 from app.libs import Filters
 
 
@@ -95,7 +95,7 @@ def search():
         return render_template('index.html', **ctx)
     ctx = {
         'form': form,
-        'fields': json.dumps(fields),
+        'data_field_0': json.dumps(data_field_0),
         'comparator': {
             'normal': json.dumps(filters),
             'date': json.dumps(date_filter)

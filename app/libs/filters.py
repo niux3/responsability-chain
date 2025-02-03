@@ -1,5 +1,5 @@
 from app.models import User
-from app.forms import fields, filters
+from app.forms import data_field_0, filters
 import app.libs.handlers as handlers_module
 
 
@@ -18,7 +18,9 @@ class Filters:
                 break
             # TODO : récupérer diretement le nom du champs comme ça, ça me parait risquer
             key_column_name = int(data[fields_form[0]])
-            column_name = fields[key_column_name]
+            # column_name = fields[key_column_name]
+
+
             # key_comparator = int(data[fields_form[1]])
             # comparator = filters[key_comparator]
             comparator = int(data[fields_form[1]])
