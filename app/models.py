@@ -39,7 +39,3 @@ class User(db.Model):
     def __repr__(self):
         tpl = '<%s id="%s" email="%s" ssn="%s">'
         return tpl % (__class__.__name__, self.id, self.email, self.ssn)
-
-    @property
-    def company(self):
-        return Company.query.get(self.company_id)
